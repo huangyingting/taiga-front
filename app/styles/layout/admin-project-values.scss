@@ -189,24 +189,6 @@
     margin-block-start: 1.5rem;
     padding-inline-start: 1rem;
 
-    .form-button {
-        &:hover {
-            background: none;
-
-            .icon {
-                fill: $color-link-primary;
-                opacity: 1;
-            }
-        }
-
-        .icon {
-            fill: $color-link-tertiary;
-            opacity: .5;
-            transition: all .25s ease;
-        }
-    }
-
-
     .admin-swimlane-title {
         align-items: center;
         background: $color-white;
