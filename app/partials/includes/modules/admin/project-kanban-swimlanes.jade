@@ -57,36 +57,30 @@ section.admin-kanban-powerups
             status="status"
         )
 
-    .admin-wip-manager(ng-if="values.length")
+    .admin-wip-manager(
+        ng-if="values.length"
+    )
         .admin-swimlane-wip-single(
+            tg-project-swimlanes-wip
             ng-repeat="value in values track by value.id"
         )
             button.admin-swimlane-title(
-                ng-class="{folded: ctrl.wipClosed}"
-                ng-click="ctrl.toggleWipVisibility()"
+                ng-class="{folded: wipClosed}"
+                ng-click="toggleWipVisibility()"
             )
                 h2.title-name  {{ value.name }}
                 tg-svg.unfold-action(
-                    ng-if="!ctrl.wipClosed"
+                    ng-if="!wipClosed"
                     svg-icon="icon-unfolded-swimlane"
                 )
                 tg-svg.fold-action(
-                    ng-if="ctrl.wipClosed"
+                    ng-if="wipClosed"
                     svg-icon="icon-folded-swimlane"
                 )
-                    tg-wip-limit-selector(
-                        ng-repeat="status in value.statuses"
-                        status="status"
-                    )
-
-    //- .admin-wip-manager
-    //-     .admin-wip-list(
-    //-         ng-if="values"
-    //-     )
-    //-         .admin-swimlane-wip-single(
-    //-             ng-controller="ProjectSwimlanesWipController as ctrl",
-    //-             ng-repeat="value in values track by value.id"
-    //-         )
-    //-             include ../admin/project-kanban-swimlane-wip-single
-
-
+            .admin-wip-container(
+                ng-if="!wipClosed"
+            )
+                tg-wip-limit-selector(
+                    ng-repeat="status in value.statuses"
+                    status="status"
+                )

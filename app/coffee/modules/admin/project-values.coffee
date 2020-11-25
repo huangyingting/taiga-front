@@ -1479,28 +1479,23 @@ ProjectTagsDirective = ($log, $repo, $confirm, $location, animationFrame, $trans
 
 module.directive("tgProjectTags", ["$log", "$tgRepo", "$tgConfirm", "$tgLocation", "animationFrame","$translate", "$rootScope", ProjectTagsDirective])
 
-#############################################################################
-## Swimlane wip directive
-#############################################################################
-
-# ProjectSwimlanesWipDirective = () ->
-
-#     link = ($scope, $el, $attrs) ->
-
-#         $scope.wipClosed = false;
-
-#         $scope.toggleWipVisibility: () ->
-#             $scope.wipClosed = !$scope.wipClosed
-
-#     return {
-#         link: link
-#     }
-
-# module.directive("tgProjectSwimlanesWip", [ProjectSwimlanesWipDirective])
-
 # #############################################################################
-# ## Swimlanes wip controller
+# ## Swimlanes wip directive
 # #############################################################################
+
+ProjectSwimlanesWipDirective = () ->
+
+    link = ($scope, $el, $attrs, $model) ->
+        $scope.wipClosed = false
+
+        $scope.toggleWipVisibility = () ->
+            $scope.wipClosed = !$scope.wipClosed
+
+    return {
+        link: link
+    }
+
+module.directive("tgProjectSwimlanesWip", ProjectSwimlanesWipDirective)
 
 # class ProjectSwimlanesWipController extends taiga.Controller
 #     @.wipClosed = false;
