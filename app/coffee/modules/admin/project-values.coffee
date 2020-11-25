@@ -55,6 +55,10 @@ class ProjectValuesSectionController extends mixOf(taiga.Controller, taiga.PageM
                   @appMetaService, @translate, @errorHandlingService, @projectService) ->
         @scope.project = {}
 
+        @scope.$on "project:load", () =>
+            @projectService.fetchProject().then () =>
+                @.loadProject()
+
         @.loadInitialData()
 
         sectionName = @translate.instant(@scope.sectionName)
@@ -68,7 +72,6 @@ class ProjectValuesSectionController extends mixOf(taiga.Controller, taiga.PageM
         @appMetaService.setAll(title, description)
 
     loadProject: ->
-        console.log(1)
         project = @projectService.project.toJS()
 
         if not project.i_am_admin
