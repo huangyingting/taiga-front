@@ -31,13 +31,8 @@ WipLimitSelector = ($timeout) ->
 
         scope.displayWipLimitSelector = false
 
-        init = () ->
-            console.log("init tgWipLimitSelector!")
-
         scope.toggleWipSelectorVisibility = () ->
             scope.displayWipLimitSelector = !scope.displayWipLimitSelector
-
-        init()
 
     return {
         link: link,

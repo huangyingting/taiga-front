@@ -68,6 +68,7 @@ class ProjectValuesSectionController extends mixOf(taiga.Controller, taiga.PageM
         @appMetaService.setAll(title, description)
 
     loadProject: ->
+        console.log(1)
         project = @projectService.project.toJS()
 
         if not project.i_am_admin
@@ -99,7 +100,6 @@ class ProjectValuesController extends taiga.Controller
 
     constructor: (@scope, @rootscope, @repo, @confirm, @rs) ->
         @scope.$on("admin:project-values:move", @.moveValue)
-        @scope.$on("admin:project-values:reload", @.loadValues)
 
         unwatch = @scope.$watch "resource", (resource) =>
             if resource
@@ -182,8 +182,6 @@ class ProjectSwimlanesValuesController extends taiga.Controller
             @.loadSwimlanes()
 
     loadSwimlanes: =>
-        @projectService.fetchProject()
-
         return @rs[@scope.resource].list(@scope.projectId).then (values) =>
             @scope.values = values
 

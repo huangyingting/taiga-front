@@ -34,10 +34,6 @@ class ProjectSwimlanesWipLimitController
                 @rootscope.$broadcast("swimlane:load")
         else
             return @rs.userstories.editStatus(@.status.id, @.new_wip_limit).then () =>
-                @rootscope.$broadcast("admin:project-values:reload")
-
-        # console.log('status': @.status)
-        # console.log('swimlane_userstory_status_id': @.status.swimlane_userstory_status_id)
-        # console.log({ 'id': @.status.id}, {'new_wip_limit': @.new_wip_limit })
+                @rootscope.$broadcast("project:load")
 
 angular.module("taigaComponents").controller("ProjectSwimlanesWipLimit", ProjectSwimlanesWipLimitController)
