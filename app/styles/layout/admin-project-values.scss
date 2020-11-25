@@ -185,9 +185,9 @@
 }
 
 .admin-wip-manager {
-    $swimlanes-width: 500px;
     margin-block-start: 1.5rem;
     padding-inline-start: 1rem;
+    width: 500px;
 
     .admin-swimlane-title {
         align-items: center;
