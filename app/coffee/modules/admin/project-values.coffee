@@ -99,6 +99,7 @@ class ProjectValuesController extends taiga.Controller
 
     constructor: (@scope, @rootscope, @repo, @confirm, @rs) ->
         @scope.$on("admin:project-values:move", @.moveValue)
+        @scope.$on("admin:project-values:reload", @.loadValues)
 
         unwatch = @scope.$watch "resource", (resource) =>
             if resource

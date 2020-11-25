@@ -18,11 +18,26 @@
 ###
 
 class ProjectSwimlanesWipLimitController
+    @.$inject = [
+        "$scope",
+        "$rootScope",
+        "$tgResources",
+    ]
 
-    constructor: () ->
+    constructor: (@scope, @rootscope, @rs) ->
         @.new_wip_limit = @.status.wip_limit
 
     submitSwimlaneNewStatus: () ->
-        console.log({ 'id': @.status.id}, {'new_wip_limit': @.new_wip_limit })
+        @scope.displayWipLimitSelector = false
+        if (!!@.status.swimlane_userstory_status_id)
+            return @rs.swimlanes.wipLimitUpdate(@.status.swimlane_userstory_status_id, @.new_wip_limit).then () =>
+                @rootscope.$broadcast("swimlane:load")
+        else
+            return @rs.userstories.editStatus(@.status.id, @.new_wip_limit).then () =>
+                @rootscope.$broadcast("admin:project-values:reload")
+
+        # console.log('status': @.status)
+        # console.log('swimlane_userstory_status_id': @.status.swimlane_userstory_status_id)
+        # console.log({ 'id': @.status.id}, {'new_wip_limit': @.new_wip_limit })
 
 angular.module("taigaComponents").controller("ProjectSwimlanesWipLimit", ProjectSwimlanesWipLimitController)
