@@ -447,10 +447,23 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
         return project
 
     initializeSubscription: ->
-        routingKey1 = "changes.project.#{@scope.projectId}.userstories"
         randomTimeout = taiga.randomInt(700, 1000)
-        @events.subscribe @scope, routingKey1, debounceLeading(randomTimeout, (message) =>
-            @.loadUserstories())
+
+        routingKeyUserstories = "changes.project.#{@scope.projectId}.userstories"
+        routingKeyProject = "changes.project.#{@scope.projectId}.projects"
+
+        @events.subscribe @scope, routingKeyUserstories, debounceLeading randomTimeout, (message) =>
+            @.loadUserstories()
+
+        @events.subscribe @scope, routingKeyProject, debounceLeading randomTimeout, (message) =>
+            console.log(">> Project Event", message.matches)
+            if message.matches in [
+                "projects.swimlane",
+                "projects.userstorystatuses",
+                "projects.swimlaneuserstorystatuses"
+            ]
+                console.log("                ", message)
+                @.loadUserstories()
 
     loadInitialData: ->
         project = @.loadProject()
